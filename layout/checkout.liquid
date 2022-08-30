@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="{{ locale }}" dir="{{ direction }}" class="{{ checkout_html_classes }}">
+  <head>
+  {% render 'elevar-head' %}
+  {% render 'elevar-head-listener' %}
+    
+    <script type="application/javascript" async src="https://sdk.postscript.io/integrations/sdk-min.js"></script>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, user-scalable=0">
+    <meta name="referrer" content="origin">
+    <title>{{ page_title }}</title>
+    {{ content_for_header }}
+    {{ checkout_stylesheets }}
+    {{ checkout_scripts }}
+    <style>
+      div.order-summary__sections {height:auto;} div.wct h2 {font-weight:bold;font-size:15px;} div.wct>div p {font-size:13px;}
+      div.wct>h2 {color:#ff8e9e;position:relative;text-align:center;font-size:16px;margin:15px 0;}
+      div.wct>h2:before {content:'';position:absolute;top:50%;left:0;width:100%;height:2px;background:#ff8e9e;}
+      div.wct>h2>span {background:#fafafa;padding:0 20px;position:relative;z-index:1;}
+      div.wct>div {display:flex;justify-content:space-between;align-items:center;margin-top:20px;} div.wct>div>div {padding-left:10px;color:#565451;}
+      p#timer {text-align:center;border:1px solid #ff8e9e;padding:10px 5px;margin:20px 0;background:#ffe4e8;} p#timer>b {color:#ff8e9e;font-weight:900;} p#timer>b>span {color:black;font-weight:100;}
+      ol.breadcrumb {justify-content:space-between;position:relative;}
+      ol.breadcrumb:before {content:'';position:absolute;width:88%;left:30px;top:20px;border-top:4px solid #ff8e9e;z-index:-1;}
+      ol.breadcrumb>li.breadcrumb__item {position:relative;display:block!important;text-align:center;} ol.breadcrumb>li.breadcrumb__item>svg {display:none;}
+      ol.breadcrumb>li.breadcrumb__item:before {content:'2';width:40px;height:40px;border-radius:50%;border:4px solid #ff8e9e;text-align:center;display:inline-block;font-size:18px;font-weight:700;padding-top:7px;box-sizing:border-box;background:#fff;}
+      ol.breadcrumb>li.breadcrumb__item:nth-child(3):before {content:'3';} ol.breadcrumb>li.breadcrumb__item:nth-child(4):before {content:'4';}
+      ol.breadcrumb>li.breadcrumb__item.breadcrumb__item--completed:before {content:'✓';} ol.breadcrumb>li.breadcrumb__item.breadcrumb__item--current:before {background:#ff8e9e;color:white;}
+      ol.breadcrumb>li.breadcrumb__item .breadcrumb__link, ol.breadcrumb>li.breadcrumb__item .breadcrumb__text {display:block;text-align:center;text-transform:uppercase;padding-top:3px;}
+      span.step__footer__previous-link-content, li.policy-list__item>a {color: #565451;}
+      img.logo__image--large {max-height: 62px;}
+      @media screen and (min-width:1000px){div.wct.mob {display:none;}}
+      @media screen and (max-width:999px){div.wct.dt {display:none;} div.wct.mob {flex-direction:column;} div.wct.mob>h2>span {background:white;}}
+    </style>
+  
+  {% render 'shogun-head' %}
+</head>
+  <body>
+  {% render 'elevar-checkout-end' %}
+    
+    {{ skip_to_content_link }}
+    <header class="banner" data-header role="banner"><div class="wrap">{{ content_for_logo }}</div></header>
+    <div class="content" data-content>
+      <div class="wrap">
+        <div class="main">
+          <header class="main__header" role="banner">
+            {{ content_for_logo }}
+            <div class="wct dt">{{ breadcrumb }}</div>
+            {{ order_summary_toggle }}
+            {{ alternative_payment_methods }}
+          </header>
+          <p id="timer">Your offer ends in <b>xm xs</b></p>
+          <main class="main__content" role="main">{{ content_for_layout }}</main>
+          <div class="wct mob">
+            <a class="logo--center" href="https://thenamestamp.co/"><img alt="TheNameStamp™" class="logo__image" src="https://cdn.shopify.com/s/files/1/0658/1567/5126/files/trustbudges_82cb68b2-d2d3-478d-a582-f80988b2f7bf.webp?v=1661847665"></a>
+            <h2><span>Why Choose TheNameStamp™</span></h2>
+            <div>{{ 'refund.png' | asset_img_url: 'thumbnail' | img_tag }}
+              <div>
+                <h2>30 Day Money Back Guarantee </h2>
+                <p>If you are not satisfied with your order, just return it within 30 days of your purchase and we will give you a full refund.</p>
+              </div>
+            </div>
+            <div>{{ 'return.png' | asset_img_url: 'thumbnail' | img_tag }}
+              <div>
+                <h2>Amazing Support & Free Returns</h2>
+                <p>Customer service it's a BIG DEAL around here! We make sure your purchase meets all your needs and expectations. And if you need to return your order, we got you covered!</p>
+              </div>
+            </div>
+            <div>{{ 'happy.png' | asset_img_url: 'thumbnail' | img_tag }}
+              <div>
+                <h2>Over 150,000 Happy Customers</h2>
+                <p>Everyone that tries TheNameStamp™️ says it's a must-have. We invest a lot of love and care into our cute stamps,  so you can enjoy the ULTIMATE parent hack!</p>
+              </div>
+            </div>
+          </div>
+          <footer class="main__footer" role="contentinfo">{{ content_for_footer }}</footer>
+        </div>
+        <aside class="sidebar" role="complementary">
+          <div class="sidebar__header">{{ content_for_logo }}</div>
+          <div class="sidebar__content">{{ content_for_order_summary }}</div>
+          <div class="wct dt">
+            <a class="logo logo--center" href="https://thenamestamp.co/"><img alt="TheNameStamp™" class="logo__image" src="https://cdn.shopify.com/s/files/1/0658/1567/5126/files/trustbudges_82cb68b2-d2d3-478d-a582-f80988b2f7bf.webp?v=1661847665"></a>
+            <h2><span>Why Choose TheNameStamp™</span></h2>
+            <div>{{ 'refund.png' | asset_img_url: 'thumbnail' | img_tag }}
+              <div>
+                <h2>30 Day Money Back Guarantee </h2>
+                <p>If you are not satisfied with your order, just return it within 30 days of your purchase and we will give you a full refund.</p>
+              </div>
+            </div>
+            <div>{{ 'return.png' | asset_img_url: 'thumbnail' | img_tag }}
+              <div>
+                <h2>Amazing Support & Free Returns</h2>
+                <p>Customer service it's a BIG DEAL around here! We make sure your purchase meets all your needs and expectations. And if you need to return your order, we got you covered!</p>
+              </div>
+            </div>
+            <div>{{ 'happy.png' | asset_img_url: 'thumbnail' | img_tag }}
+              <div>
+                <h2>Over 150,000 Happy Customers</h2>
+                <p>Everyone that tries TheNameStamp™️ says it's a must-have. We invest a lot of love and care into our cute stamps,  so you can enjoy the ULTIMATE parent hack!</p>
+              </div>
+            </div>
+          </div>
+        </aside>
+        <div class="wct mob">{{ breadcrumb }}</div>
+      </div>
+    </div>
+    {{ tracking_code }}
+    <script>
+      function getCookie(name) {
+        const matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
+        return matches ? decodeURIComponent(matches[1]) : undefined;
+      }
+      if (getCookie('timer') > new Date().getTime()){
+        var time = getCookie('timer');
+        var timer = setInterval(function(){
+          var left = time - new Date().getTime();
+          document.querySelector('p#timer>b').innerHTML = Math.floor(left / 60000) + 'm ' + Math.floor(left % 60000 / 1000) + 's';
+          if (left < 1000){
+            fetch('/cart/clear.js', {method: 'post', credentials: 'include'}).then(res=>{
+              clearInterval(timer);
+              document.cookie = 'timer=""; path=/; domain=thenamestamp.co; secure=true; expires=-1';
+              window.location.href = '/collections/products';
+            });
+          }
+        },1000);
+      } else {
+        document.cookie = 'timer=' + (new Date().getTime()+900000) + '; path=/; domain=thenamestamp.co; secure=true; expires=' + new Date(new Date().getTime() + 3600000 * 24).toUTCString();
+        var time = new Date().getTime() + 900000;
+        var timer = setInterval(function(){
+          var left = time - new Date().getTime();
+          document.querySelector('p#timer>b').innerHTML = Math.floor(left / 60000) + 'm ' + Math.floor(left % 60000 / 1000) + 's';
+          if (left < 1000){
+            fetch('/cart/clear.js', {method: 'post', credentials: 'include'}).then(res=>{
+              clearInterval(timer);
+              document.cookie = 'timer=""; path=/; domain=thenamestamp.co; secure=true; expires=-1';
+              window.location.href = '/collections/products';
+            });
+          }
+        },1000);
+      }
+    </script>
+<script src="https://t.cometlytrack.com/"></script>
+  </body>
+</html>
